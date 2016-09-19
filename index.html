@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				width: 600px;
+				height: 600px;
+				margin: 10px auto;
+				border: 1px solid gold;
+				position: relative;
+				overflow: hidden;
+			}
+			#zi{
+				width: 50px;
+				height: 50px;
+				text-align: center;
+				line-height: 50px;
+				color: gold;
+				position: absolute;
+				top: -50px;
+			}
+			#score{
+				position: absolute;
+				left: 0;
+				top: 5px;
+				font-size:30px;
+				z-index: 2;
+			}
+			button{
+				width: 100px;
+				height: 50px;
+				font-size: 30px;
+				position: absolute;
+				top: 0;
+				margin: 10px 300px;
+				z-index: 2;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div id="score">得分：0</div>
+			<button>开始</button>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		
+		var box = document.getElementById("box");
+		var score = document.getElementById("score");
+		var btn = document.querySelector("button");
+		var l = 0;
+		var div;
+		var stringa;
+		var t = -50;
+		var score1 = 0;
+		var arr = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+		//alert(t);
+		btn.onclick = function(){
+			getDiv();
+			document.onkeydown = function(event){
+			 var keya = String.fromCharCode(event.keyCode);
+				if (keya == stringa) {
+					box.removeChild(div);
+					score1 += 1;
+					console.log(score1);
+					t = -50;
+					l = randomNum(1,550);
+					getDiv();
+				}
+				score.innerHTML = "得分：" + score1;
+			}
+			
+			var timer = setInterval(function(){
+				t+=5;
+				//alert(t);
+				if (t == 600) {
+					//getDiv();
+					box.removeChild(div);
+					alert("game over");
+				}
+				div.style.top = t + "px";
+				div.style.left = l + "px";
+			},50);
+		};
+		//创建div
+		function getDiv(){
+			var a = randomNum(0,25);
+			
+			for (var i = 0;i < arr.length;i++) {
+				div = document.createElement("div");
+				div.style.backgroundImage = "url(img/20.png)";
+				div.style.backgroundSize = "cover";
+				div.id = "zi";
+				div.innerHTML = arr[a];
+				stringa = div.innerHTML;
+				box.appendChild(div);	
+			}
+		};
+		function randomNum(x,y){
+			return Math.floor(Math.random()*( y - x + 1) + x);
+		}
+		
+	</script>
+</html>
